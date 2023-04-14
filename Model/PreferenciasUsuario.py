@@ -1,6 +1,6 @@
 class PreferenciasUsuario:
-    def __init__(self, nacionalidade, atividades, clima, caracteristica):
+    def __init__(self, nacionalidade, clima, caracteristica, atividades):
         self.nacionalidade = nacionalidade
-        self.atividades = atividades
         self.clima = clima
         self.caracteristica = caracteristica
+        self.atividades = atividades
