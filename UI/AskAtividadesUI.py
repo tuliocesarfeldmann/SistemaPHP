@@ -12,13 +12,17 @@ class AskAtividadesUI:
                            "Mergulho": IntVar(),
                            "Queda da água": IntVar(),
                            "Passeio de barco": IntVar(),
-                           "Romantico": IntVar(),
+                           "Gastronomia": IntVar(),
+                           "Parques": IntVar(),
                            "Patrimonio Histórico": IntVar(),
                            "Carnaval": IntVar(),
                            "Trilha": IntVar(),
                            "Museus": IntVar(),
                            "Ecoturismo": IntVar(),
-                           "Esqui": IntVar()}
+                           "Esqui": IntVar(),
+                           "Observação de aurora boreal": IntVar(),
+                           "Caminhada na neve": IntVar(),
+                           "Pesca": IntVar()}
         
         for nomeAtividade in self.atividades:
             checkbox = Checkbutton(self.frame, text=nomeAtividade, variable=self.atividades[nomeAtividade], selectcolor="gray", activebackground="#3c3c3c")

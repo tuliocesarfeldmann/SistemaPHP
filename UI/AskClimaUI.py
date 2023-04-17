@@ -12,7 +12,7 @@ class AskClimaUI:
         optTropical = Radiobutton(self.frame, text="Clima Tropical", variable=self.clima, value="Tropical", selectcolor="gray", activebackground="#3c3c3c")
         optSubtropical = Radiobutton(self.frame, text="Clima Subtropical", variable=self.clima, value="Subtropical", selectcolor="gray", activebackground="#3c3c3c")
         optTemperado = Radiobutton(self.frame, text="Clima Temperado", variable=self.clima, value="Temperado", selectcolor="gray", activebackground="#3c3c3c")
-        optFrio = Radiobutton(self.frame, text="Clima Frio", variable=self.clima, value="FRIO", selectcolor="gray", activebackground="#3c3c3c")
+        optFrio = Radiobutton(self.frame, text="Clima Frio", variable=self.clima, value="Frio", selectcolor="gray", activebackground="#3c3c3c")
         optTropical.pack(padx=150, pady=2, anchor=W)
         optSubtropical.pack(padx=150, pady=2, anchor=W)
         optTemperado.pack(padx=150, pady=2, anchor=W)
