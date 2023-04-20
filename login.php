@@ -3,7 +3,7 @@
 
     if(isset($_SESSION['user_id'])) {
         echo(isset($_SESSION['user_id']));
-        header("Location: dashboard.php");
+        header("Location: index.php");
     }
 
     require 'db_config.php';
@@ -30,7 +30,7 @@
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['nome'] = $user['nome'];
                 $_SESSION['role'] = $user['role'];
-                header("Location: dashboard.php");
+                header("Location: index.php");
             } else {
                 $message = "O email ou a senha estão incorretos!";
             }

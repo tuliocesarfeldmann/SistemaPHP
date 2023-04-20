@@ -3,7 +3,7 @@
     $dbname = 'trabalho_php';
 
     $username = 'root';
-    $password = '';
+    $password = 'admin';
 
     // Conecta ao banco de dados usando PDO
     try {

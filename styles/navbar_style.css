@@ -1,0 +1,55 @@
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    height: 5em;
+}
+
+.navbar img {
+    float: left;
+    width: 5em;
+    height: 5em;
+    margin-right: 1em;
+}
+
+.navbar a {
+    float: left;
+    color: #ddd;
+    text-align: center;
+    margin: 1em 0 1em 0;
+    padding: 1em 1em;
+    text-decoration: none;
+  }
+
+.navbar a:hover {
+    background-color: #aaa;
+    color: #333;
+}
+
+.navbar a.selected {
+    background-color: #4b0286;
+    color: white;
+}
+
+span.username {
+    color: white;
+    float: right;
+    margin: 1em 0 1em 0;
+    padding: 1em 1em;
+    text-align: center;
+}
+
+button.options {
+    float: right;
+    margin: 1em 0 1em 0;
+
+    border: 0;
+    background-color: #333;
+}
+
+.navbar button img {
+    width: 2em;
+    height: 2em;
+    padding: 2em 1.5em 1em 1.5em;
+}
