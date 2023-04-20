@@ -42,14 +42,14 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="styles/login_style.css">
+    <link rel="stylesheet" type="text/css" href="styles/authentication_style.css">
 </head>
 <body>
     <?php if(!empty($message)): ?>
         <p class="error"><?php echo $message; ?></p>
     <?php endif; ?>
 
-    <form action="login.php" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <p>LOGIN</p>
         <input type="text" name="email" placeholder="Digite seu email">
         <input type="password" name="password" placeholder="Digite sua senha">

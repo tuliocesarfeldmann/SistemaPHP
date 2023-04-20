@@ -1,6 +1,4 @@
 <?php
-    $_PAGE_TITLE = "Comprar";
-
     session_start();
 
     // Verifica se a sessão do usuário está ativa
@@ -9,28 +7,17 @@
         header("Location: login.php");
         exit;
     }
-
-    if(isset($_POST['logout'])){
-        session_destroy();
-        header("Location: login.php");
-        exit;
-    }
-
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo($_PAGE_TITLE)?></title>
-    <link rel="stylesheet" type="text/css" href="styles/dashboard_style.css">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="styles/index_style.css">
+    <link rel="stylesheet" type="text/css" href="styles/menu_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"></link>
 </head>
 <body>
-    <?php include_once("navbar.php");?>
-
-    <p>DASHBOARD WORKS!!</p>
-
-    <form method="post">
-        <input type="submit" name="logout" value="Logout">
-    </form>
+    <?php include 'menu.php'; ?>
 </body>
 </html>

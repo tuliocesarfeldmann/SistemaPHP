@@ -27,10 +27,10 @@
 <html>
 <head>
     <title><?php echo($_PAGE_TITLE)?></title>
-    <link rel="stylesheet" type="text/css" href="styles/dashboard_style.css">
+   
 </head>
 <body>
-    <?php include_once("navbar.php");?>
+    <?php include_once("menu.php");?>
 
     <p>DASHBOARD WORKS!!</p>
 

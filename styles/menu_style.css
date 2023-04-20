@@ -1,0 +1,80 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #353535;
+    color: #fff;
+    padding: 1%;
+    border-radius: 10px;
+}
+  
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav form {
+    display: flex;
+    width: 40%;
+}
+
+nav input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    margin-right: 5px;
+}
+
+nav button[type="submit"] {
+    background-color: transparent;
+    color: #fff;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+}
+
+.profile-menu {
+    position: relative;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    padding: 10px;
+    min-width: 150px;
+    border-radius: 10px;
+}
+
+.profile-dropdown a {
+    display: block;
+    color: #121212;
+    text-decoration: none;
+    padding: 5px;
+}
+
+.profile-dropdown a:hover {
+    background-color: #eee;
+}
+
+.profile-btn {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.profile-menu:hover .profile-dropdown {
+    display: block;
+}

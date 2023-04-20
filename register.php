@@ -2,7 +2,7 @@
     session_start();
 
     if(isset($_SESSION['user_id'])) {
-        header("Location: dashboard.php");
+        header("Location: index.php");
     }
 
     require 'db_config.php';
@@ -45,14 +45,14 @@
 <html>
 <head>
     <title>Cadastro</title>
-    <link rel="stylesheet" type="text/css" href="styles/login_style.css">
+    <link rel="stylesheet" type="text/css" href="styles/authentication_style.css">
 </head>
 <body>
     <?php if(!empty($message)): ?>
         <p><?php echo $message; ?></p>
     <?php endif; ?>
 
-    <form action="register.php" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <p>CADASTRO</p>
         <input type="text" name="email" placeholder="Digite seu email">
         <input type="password" name="password" placeholder="Digite sua senha">
