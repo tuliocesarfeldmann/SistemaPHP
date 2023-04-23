@@ -39,9 +39,11 @@
         $stmtProducts->execute();
         $products = $stmtProducts->fetchAll();
 
+        echo("<div class=\"productListing\">");
         foreach($products as $product) {
-            echo($product["name"] . $product["price"] . "<img style=\"width:30%;\"src=\"data:image/jpeg;base64,".base64_encode($product["image"])."\"/>" . "<br>");
+            createProductCard($product["name"], $product["price"], $product["image"]);
         }
+        echo("</div>");
     ?>
     
     <a href="register_product.php">Cadastrar Produto</a>

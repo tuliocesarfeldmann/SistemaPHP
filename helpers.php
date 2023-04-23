@@ -40,4 +40,18 @@ function showPopup() {
     }
 }
 
+function createProductCard($name, $price, $imageBlob) {
+    echo("<div class=\"product\">");
+
+    echo("<img class=\"productImage\" src=\"data:image/jpeg;base64,".base64_encode($imageBlob)."\"/>");
+    echo("<p class=\"productName\">$name</p>");
+    echo("<p class=\"productPrice\">$price</p>");
+    echo("<div>
+            <button class=\"buyButton\">Carrinho</button>
+            <button class=\"buyButton\">Comprar</button>
+        </div>");
+
+    echo("</div>");
+}
+
 ?>

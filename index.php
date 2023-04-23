@@ -1,4 +1,7 @@
 <?php
+    require_once("db_config.php");
+    include_once("helpers.php");
+
     session_start();
 
     // Verifica se a sessão do usuário está ativa
@@ -7,6 +10,8 @@
         header("Location: login.php");
         exit;
     }
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -19,5 +24,25 @@
 </head>
 <body>
     <?php include 'menu.php'; ?>
+
+    <?php
+        $nameFilter =  "%" . ($_GET["search"] ?? "") . "%";
+        
+
+        $queryProducts = "SELECT p.*, i.image FROM products p 
+            INNER JOIN images i on i.id = p.image_id 
+            WHERE UPPER(p.name) like UPPER(:nameFilter)";
+
+        $stmtProducts = $pdo->prepare($queryProducts);
+        $stmtProducts->bindParam("nameFilter", $nameFilter);
+        $stmtProducts->execute();
+        $products = $stmtProducts->fetchAll();
+
+        echo("<div class=\"productListing\">");
+        foreach($products as $product) {
+            createProductCard($product["name"], $product["price"], $product["image"]);
+        }
+        echo("</div>");
+    ?>
 </body>
 </html>

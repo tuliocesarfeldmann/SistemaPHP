@@ -64,7 +64,7 @@
     <?php showPopup(); ?>
 
     <form method="POST" enctype="multipart/form-data">
-        <input type="text" name="productName" placeholder="Digite o nome do produto">
+        <input type="text" name="productName" placeholder="Digite o nome do produto" required>
         <input type="number" name="price" placeholder="Digite o preço do produto" required>
         <input type="file" name="image" accept="image/*" required>
 
