@@ -1,13 +1,14 @@
 <?php
     session_start();
-    include 'db_config.php';
+    include_once 'db_config.php';
+    include_once "helpers.php";
 
     if (!empty($_POST['senha_antiga']) && !empty($_POST['nova_senha']) && !empty($_POST['nova_senha_confirm'])) {
 
         // Verifica se as senhas novas são iguais
         if ($_POST['nova_senha'] !== $_POST['nova_senha_confirm']) {
 
-            echo "<script>var senhasDiferentes = 'As senhas não são iguais';</script>";
+            setPopup(PopupTypes::ERROR, "As senhas não são iguais");
 
         } else {
             // Obter a senha antiga armazenada no banco para o usuário atualmente logado
@@ -32,9 +33,9 @@
 
                 $stmt->execute();
 
-                echo "<script>var senhaAlterada = 'Senha alterada com sucesso';</script>";
+                setPopup(PopupTypes::SUCCESS, "Senha alterada com sucesso");
             } else {
-                echo "<script>var senhaAntigaIncorreta = 'Senha antiga informada está incorreta';</script>";
+                setPopup(PopupTYpes::ERROR, "Senha antiga informada está incorreta");
             }
 
         }
@@ -65,16 +66,8 @@
 
         <a href="index.php">Voltar</a>
     </form>
-    <script>
-        $(document).ready(function() {
-            if (typeof senhasDiferentes !== 'undefined') {
-                toastr.error(senhasDiferentes);
-            } else if (typeof senhaAlterada !== 'undefined') {
-                toastr.success(senhaAlterada);
-            } else if (typeof senhaAntigaIncorreta !== 'undefined'){
-                toastr.error(senhaAntigaIncorreta);
-            }
-        });
-    </script>
+
+    <?php showPopup() ?>
+
 </body>
 </html>

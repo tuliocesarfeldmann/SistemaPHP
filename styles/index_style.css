@@ -1,4 +1,32 @@
 body {
+    margin: 0px;
     background-color: #121212;
     color: #fff;
+}
+
+.productListing {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 5%;
+    gap: 5%;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    border: #fff;
+    border-radius: 20px;
+    border-style: solid;
+    width: 250px;
+    max-width: 250px;
+    padding: 2.5%;
+    margin-bottom: 5%;
+}
+
+.productImage {
+    border-radius: 20px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
 }

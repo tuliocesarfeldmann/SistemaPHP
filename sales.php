@@ -10,8 +10,6 @@
         header("Location: login.php");
         exit;
     }
-
-    
 ?>
 
 <!DOCTYPE html>
@@ -25,15 +23,18 @@
 <body>
     <?php include 'menu.php'; ?>
 
+    
     <?php
+        //Exibir itens a venda desse usuário
         $nameFilter =  "%" . ($_GET["search"] ?? "") . "%";
         
 
         $queryProducts = "SELECT p.*, i.image FROM products p 
             INNER JOIN images i on i.id = p.image_id 
-            WHERE UPPER(p.name) like UPPER(:nameFilter)";
+            WHERE p.seller_id = :seller_id and UPPER(p.name) like UPPER(:nameFilter)";
 
         $stmtProducts = $pdo->prepare($queryProducts);
+        $stmtProducts->bindParam("seller_id", $_SESSION["user_id"]);
         $stmtProducts->bindParam("nameFilter", $nameFilter);
         $stmtProducts->execute();
         $products = $stmtProducts->fetchAll();
@@ -44,5 +45,8 @@
         }
         echo("</div>");
     ?>
+    
+    <a href="register_product.php">Cadastrar Produto</a>
+    
 </body>
 </html>
