@@ -22,6 +22,7 @@
             <div class="profile-dropdown">
                 <a href="change_password.php">Alterar senha</a>
                 <a href="sales.php">Minhas vendas</a>
+                <a href="cart.php">Meu carrinho</a>
                 <a href="?logout=true">Sair</a>
             </div>
         </div>

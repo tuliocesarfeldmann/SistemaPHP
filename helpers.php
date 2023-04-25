@@ -40,16 +40,18 @@ function showPopup() {
     }
 }
 
-function createProductCard($name, $price, $imageBlob) {
+function createProductCard($id, $name, $price, $imageBlob) {
     echo("<div class=\"product\">");
-
+    echo("<form method=\"POST\">");
+    echo("<input type=\"hidden\" name=\"product_id\" value=\"$id\">");
     echo("<img class=\"productImage\" src=\"data:image/jpeg;base64,".base64_encode($imageBlob)."\"/>");
     echo("<p class=\"productName\">$name</p>");
     echo("<p class=\"productPrice\">$price</p>");
     echo("<div>
-            <button class=\"buyButton\">Carrinho</button>
+            <button class=\"buyButton\" name=\"insert_cart\">Carrinho</button>
             <button class=\"buyButton\">Comprar</button>
         </div>");
+    echo("</form>");
 
     echo("</div>");
 }

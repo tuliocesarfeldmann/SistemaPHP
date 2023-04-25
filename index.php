@@ -11,6 +11,17 @@
         exit;
     }
 
+    if(isset($_POST["insert_cart"])){
+        $queryProduct = "INSERT INTO cart (product_id, quantity, seller_id) VALUES (:product_id, :quantity, :seller_id);";
+        $stmtProduct = $pdo->prepare($queryProduct);
+        $defaultQuantity = 1;
+        $stmtProduct->bindParam("product_id", $_POST["product_id"]);
+        $stmtProduct->bindParam("quantity", $defaultQuantity);
+        $stmtProduct->bindParam("seller_id", $_SESSION["user_id"]);
+        $stmtProduct->execute();
+
+        setPopup(PopupTypes::SUCCESS, "Produto inserido ao carrinho com sucesso!");
+    }
     
 ?>
 
@@ -21,9 +32,14 @@
     <link rel="stylesheet" type="text/css" href="styles/index_style.css">
     <link rel="stylesheet" type="text/css" href="styles/menu_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"></link>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </head>
 <body>
     <?php include 'menu.php'; ?>
+
+    <?php showPopup(); ?>
 
     <?php
         $nameFilter =  "%" . ($_GET["search"] ?? "") . "%";
@@ -40,7 +56,7 @@
 
         echo("<div class=\"productListing\">");
         foreach($products as $product) {
-            createProductCard($product["name"], $product["price"], $product["image"]);
+            createProductCard($product["id"], $product["name"], $product["price"], $product["image"]);
         }
         echo("</div>");
     ?>

@@ -30,3 +30,12 @@ create table products (
     foreign key (seller_id) references users(id),
     foreign key (image_id) references images(id)
 );
+
+create table cart (
+	id integer auto_increment primary key,
+    product_id integer not null,
+    quantity integer not null,
+    seller_id integer not null,
+    foreign key (seller_id) references users(id),
+    foreign key (product_id) references products(id)
+);
