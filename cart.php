@@ -23,16 +23,24 @@
         $cartId = $_POST["cart_id"];
     
         if($_POST["update_quantity"] === "+"){
-            $newQuantity = min($_POST["quantity"] + 1, 10); // adiciona 1 à quantidade, limitando em 10
+            $newQuantity = $_POST["quantity"] + 1;
         } else if($_POST["update_quantity"] === "-"){
-            $newQuantity = max($_POST["quantity"] - 1, 1); // subtrai 1 da quantidade, limitando em 1
+            $newQuantity = $_POST["quantity"] - 1;
+
         }
-    
-        $query = "UPDATE cart SET quantity = :newQuantity WHERE id = :cartId";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':newQuantity', $newQuantity);
-        $stmt->bindParam(':cartId', $cartId);
-        $stmt->execute();
+
+        if($newQuantity > 0){
+            $query = "UPDATE cart SET quantity = :newQuantity WHERE id = :cartId";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(':newQuantity', $newQuantity);
+            $stmt->bindParam(':cartId', $cartId);
+            $stmt->execute();
+        } else {
+            $query = "DELETE FROM cart WHERE id = :cartId";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(':cartId', $cartId);
+            $stmt->execute();
+        }
 
         header("Refresh: 0");
         exit;

@@ -41,7 +41,7 @@
 
         echo("<div class=\"productListing\">");
         foreach($products as $product) {
-            createProductCard($product["name"], $product["price"], $product["image"]);
+            createProductCard($product["id"], $product["name"], $product["price"], $product["image"]);
         }
         echo("</div>");
     ?>
