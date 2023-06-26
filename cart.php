@@ -15,8 +15,9 @@
                         FROM cart c
                         INNER JOIN products p ON c.product_id = p.id
                         INNER JOIN images i on i.id = p.image_id
-                        WHERE c.seller_id = ?");
-    $stmt->execute([$userId]);
+                        WHERE c.buyer_id = :buyer_id");
+    $stmt->bindParam(':buyer_id', $userId);
+    $stmt->execute();
     $cartItems = $stmt->fetchAll();
 
     if(isset($_POST["update_quantity"])){
@@ -43,12 +44,58 @@
         }
 
         header("Refresh: 0");
-        exit;
     }
+
+    if(isset($_POST["confirm_purchase"])){
+        try {
+            $pdo->beginTransaction();
+
+            $totalPrice = getTotalPrice($cartItems);
+            
+            $query = "INSERT INTO sale (buyer_id, total_price) VALUES (:buyer_id, :total_price)";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(":buyer_id", $_SESSION["user_id"]);
+            $stmt->bindParam(":total_price", $totalPrice);
+            $stmt->execute();
+
+            $saleId = $pdo->lastInsertId();
     
+            foreach($cartItems as $cartItem){
+                $query = "INSERT INTO sale_detailss (product_id, quantity, sale_id) VALUES (:product_id, :quantity, :sale_id)";
+                $stmt = $pdo->prepare($query);
+                $stmt->bindParam(":product_id", $cartItem['product_id']);
+                $stmt->bindParam(":quantity", $cartItem['quantity']);
+                $stmt->bindParam(":sale_id", $saleId);
+                $stmt->execute();
+            }
+    
+            setPopup(PopupTypes::SUCCESS, "Compra efetuada com sucesso! O ID da sua venda é: " . $saleId);
+    
+            $query = "DELETE FROM cart WHERE buyer_id = :buyer_id";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(':buyer_id', $_SESSION['user_id']);
+            $stmt->execute();
+
+            $cartItems = array();
+
+            $pdo->commit();
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            setPopup(PopupTypes::ERROR, "Erro ao confirmar a compra: " . $e->getMessage());
+        }
+    }
 
     function formatPrice($price) {
         return number_format($price, 2, ',', '.');
+    }
+
+    function getTotalPrice($cartItems){
+        return array_reduce($cartItems, function($acum, $item) {
+            $price = floatval($item['price']);
+            $quantity = $item['quantity'];
+            $subtotal = $price * $quantity;
+            return $acum + $subtotal;
+        }, 0);
     }
 
 ?>
@@ -61,6 +108,9 @@
   <link rel="stylesheet" type="text/css" href="styles/menu_style.css">
   <link rel="stylesheet" type="text/css" href="styles/cart_style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"></link>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </head>
 <body>
 
@@ -75,14 +125,12 @@
             <p>Seu carrinho está vazio.</p>
         <?php else: ?>
             <?php
-                $totalPrice = 0;
                 foreach ($cartItems as $cartItem):
                     $cartItemId = $cartItem['cart_id'];
                     $cartItemName = $cartItem['name'];
                     $cartItemPrice = floatval($cartItem['price']);
                     $cartItemQuantity = $cartItem['quantity'];
                     $cartItemTotalPrice = formatPrice($cartItemPrice * $cartItemQuantity);
-                    $totalPrice += $cartItemPrice * $cartItemQuantity;
                     $cartItemPrice = formatPrice($cartItemPrice);
             ?>
                 <div class="cart-item">
@@ -101,13 +149,12 @@
                 </div>
             <?php endforeach; ?>
             <div>
-                TOTAL: R$ <?= formatPrice($totalPrice) ?>
+                TOTAL: R$ <?= formatPrice(getTotalPrice($cartItems)); ?>
             </div>
         <?php endif; ?>
 
-        <form method="post" action="cart_action.php">
-            <input type="hidden" name="action" value="confirm_purchase">
-            <button type="submit">Confirmar Compra</button>
+        <form method="POST">
+            <button type="submit" name="confirm_purchase">Confirmar Compra</button>
         </form>
     </div>
 

@@ -12,12 +12,12 @@
     }
 
     if(isset($_POST["insert_cart"])){
-        $queryProduct = "INSERT INTO cart (product_id, quantity, seller_id) VALUES (:product_id, :quantity, :seller_id);";
+        $queryProduct = "INSERT INTO cart (product_id, quantity, buyer_id) VALUES (:product_id, :quantity, :buyer_id);";
         $stmtProduct = $pdo->prepare($queryProduct);
         $defaultQuantity = 1;
         $stmtProduct->bindParam("product_id", $_POST["product_id"]);
         $stmtProduct->bindParam("quantity", $defaultQuantity);
-        $stmtProduct->bindParam("seller_id", $_SESSION["user_id"]);
+        $stmtProduct->bindParam("buyer_id", $_SESSION["user_id"]);
         $stmtProduct->execute();
 
         setPopup(PopupTypes::SUCCESS, "Produto inserido ao carrinho com sucesso!");
