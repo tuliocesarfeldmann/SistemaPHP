@@ -15,14 +15,14 @@ create table users (
 );
 
 CREATE TABLE images (
-	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	image LONGBLOB NOT NULL,
-	name TEXT NOT NULL,
-	type VARCHAR (30) NOT NULL
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    image LONGBLOB NOT NULL,
+    name TEXT NOT NULL,
+    type VARCHAR (30) NOT NULL
 );
 
 create table products (
-	id integer auto_increment primary key,
+	  id integer auto_increment primary key,
     name varchar(200) not null,
     price decimal(20, 4) not null,
     seller_id integer not null,
@@ -32,7 +32,7 @@ create table products (
 );
 
 create table cart (
-	id integer auto_increment primary key,
+	  id integer auto_increment primary key,
     product_id integer not null,
     quantity integer not null,
     buyer_id integer not null,
@@ -41,7 +41,7 @@ create table cart (
 );
 
 create table sale (
-	id integer auto_increment primary key,
+	  id integer auto_increment primary key,
     buyer_id integer not null,
     total_price float not null,
     sale_date timestamp default current_timestamp,
@@ -49,8 +49,8 @@ create table sale (
 );
 
 create table sale_details (
-	id integer auto_increment primary key,
-	product_id integer not null,
+	  id integer auto_increment primary key,
+	  product_id integer not null,
     quantity integer not null,
     sale_id integer not null,
     foreign key (product_id) references products(id),

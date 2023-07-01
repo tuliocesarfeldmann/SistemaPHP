@@ -23,6 +23,16 @@ body {
     max-width: 250px;
     padding: 2.5%;
     margin-bottom: 5%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.productForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .productImage {
@@ -32,10 +42,87 @@ body {
     object-fit: cover;
 }
 
-.product .buyButton {
+.productName {
+  margin: 10px 0px 0px 0px;
+}
+.productPrice {
+  margin: 10px 0px;
+}
+
+.buyButton {
     all: unset;
     cursor: pointer;
     border: 2px solid #fff;
     border-radius: 10px;
     padding: 5px;
+    background-color:slategray;
+}
+
+.optionsList {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+
+.buyButton a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.registerProductForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #353535;
+  border: 1px solid #ddd;
+  padding: 20px;
+  width: 25%;
+  padding: 5% 1% 5% 1%;
+}
+
+.dFlex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerProductForm input {
+  display: block;
+  width: 100%;
+  margin: 5px;
+  padding: 12px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: #1c1c1c;
+  color: #fff;
+  border: 1px solid #ddd;
+}
+
+.reportTable {
+  margin-top: 2%;
+  font-weight: 700;
+}
+
+.reportTable table {
+  width: 80%;
+  max-width: 1000px;
+}
+
+.tdName, .thName {
+  width: 40%;
+  border: 2px slategray solid;
+}
+.tdQuantity, .thQuantity {
+  width: 20%;
+  border: 2px slategray solid;
+}
+.tdValue, .thValue {
+  width: 20%;
+  border: 2px slategray solid;
 }
