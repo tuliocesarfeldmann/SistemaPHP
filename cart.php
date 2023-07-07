@@ -61,7 +61,7 @@
             $saleId = $pdo->lastInsertId();
     
             foreach($cartItems as $cartItem){
-                $query = "INSERT INTO sale_detailss (product_id, quantity, sale_id) VALUES (:product_id, :quantity, :sale_id)";
+                $query = "INSERT INTO sale_details (product_id, quantity, sale_id) VALUES (:product_id, :quantity, :sale_id)";
                 $stmt = $pdo->prepare($query);
                 $stmt->bindParam(":product_id", $cartItem['product_id']);
                 $stmt->bindParam(":quantity", $cartItem['quantity']);

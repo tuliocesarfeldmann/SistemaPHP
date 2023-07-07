@@ -23,6 +23,15 @@
 <body>
     <?php include 'menu.php'; ?>
 
+    <div class="optionsList">
+      <button class="buyButton">
+        <a href="register_product.php">Cadastrar Produto</a>
+      </button>
+      <button class="buyButton">
+        <a href="sales_report.php">Relatório de Vendas</a>
+      </button>
+    </div>
+
     
     <?php
         //Exibir itens a venda desse usuário
@@ -41,12 +50,10 @@
 
         echo("<div class=\"productListing\">");
         foreach($products as $product) {
-            createProductCard($product["id"], $product["name"], $product["price"], $product["image"]);
+            createProductCard($product["id"], $product["name"], $product["price"], $product["image"], true);
         }
         echo("</div>");
     ?>
-    
-    <a href="register_product.php">Cadastrar Produto</a>
     
 </body>
 </html>

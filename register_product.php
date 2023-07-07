@@ -63,13 +63,15 @@
     
     <?php showPopup(); ?>
 
-    <form method="POST" enctype="multipart/form-data">
-        <input type="text" name="productName" placeholder="Digite o nome do produto" required>
-        <input type="number" name="price" placeholder="Digite o preço do produto" required>
-        <input type="file" name="image" accept="image/*" required>
-
-        <input type="submit" name="registerProduct">
-    </form>
+    <div class="dFlex" style="margin-top: 2%">
+      <form class="registerProductForm" method="POST" enctype="multipart/form-data">
+          <input type="text" name="productName" placeholder="Digite o nome do produto" required>
+          <input type="number" name="price" step="0.01" placeholder="Digite o preço do produto" required>
+          <input type="file" name="image" accept="image/*" required>
+          <br><br>
+          <input type="submit" name="registerProduct">
+      </form>
+    </div>
 
 </body>
 </html>
