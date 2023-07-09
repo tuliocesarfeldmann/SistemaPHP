@@ -1,5 +1,6 @@
 <?php
-    $_PAGE_TITLE = "Administrar";
+    require_once("db_config.php");
+    include_once("helpers.php");
 
     session_start();
 
@@ -21,21 +22,52 @@
         header("Location: login.php");
         exit;
     }
+
+    if(isset($_POST["deleteItem"])){
+      $queryProduct = "UPDATE products SET deleted = 1 WHERE id = :product_id;";
+      $stmtProduct = $pdo->prepare($queryProduct);
+      $stmtProduct->bindParam("product_id", $_POST["product_id"]);
+      $stmtProduct->execute();
+
+      setPopup(PopupTypes::SUCCESS, "Produto excluído com sucessor!");
+  }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo($_PAGE_TITLE)?></title>
-   
+    <title>Gerenciar itens do site</title>
+    <link rel="stylesheet" type="text/css" href="styles/index_style.css">
+    <link rel="stylesheet" type="text/css" href="styles/menu_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"></link>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </head>
 <body>
-    <?php include_once("menu.php");?>
+    <?php include 'menu.php'; ?>
 
-    <p>DASHBOARD WORKS!!</p>
+    <?php showPopup(); ?>
 
-    <form method="post">
-        <input type="submit" name="logout" value="Logout">
-    </form>
+    <?php
+        $nameFilter =  "%" . ($_GET["search"] ?? "") . "%";
+        
+
+        $queryProducts = "SELECT p.*, i.image FROM products p 
+            INNER JOIN images i on i.id = p.image_id 
+            WHERE UPPER(p.name) like UPPER(:nameFilter)
+            AND p.deleted = 0";
+
+        $stmtProducts = $pdo->prepare($queryProducts);
+        $stmtProducts->bindParam("nameFilter", $nameFilter);
+        $stmtProducts->execute();
+        $products = $stmtProducts->fetchAll();
+
+        echo("<div class=\"productListing\">");
+        foreach($products as $product) {
+            createProductCardAdmin($product["id"], $product["name"], $product["price"], $product["image"]);
+        }
+        echo("</div>");
+    ?>
 </body>
 </html>
