@@ -24,6 +24,15 @@
     <?php include 'menu.php'; ?>
     
     <?php
+        function getTotalPrice($cartItems){
+          return array_reduce($cartItems, function($acum, $item) {
+              $price = floatval($item['price']);
+              $quantity = $item['quantity'];
+              $subtotal = $price * $quantity;
+              return $acum + $subtotal;
+          }, 0);
+      }
+
         // Listar itens vendidos do vendedor
         $querySales = "SELECT p.name, p.price, SUM(quantity) as quantity FROM sale_details sd
                         JOIN products p ON p.id = sd.product_id
@@ -39,15 +48,23 @@
         echo("<table>");
         echo("<tr> <th class=\"thName\">Descrição</th> <th class=\"thQuantity\">Quantidade vendida</th> <th class=\"thValue\">Valor total vendido</th>");
 
+        $valorTotal = 0;
         foreach($sales as $sale) {
-          echo("<tr>");
+            echo("<tr>");
 
-          echo("<td class=\"tdName\">". $sale["name"] ."</td>");
-          echo("<td class=\"tdQuantity\">". $sale["quantity"] ."</td>");
-          echo("<td class=\"tdValue\">R$ ". number_format($sale["quantity"] * $sale["price"], 2, ',', '.')  ."</td>");
+            echo("<td class=\"tdName\">". $sale["name"] ."</td>");
+            echo("<td class=\"tdQuantity\">". $sale["quantity"] ."</td>");
+            echo("<td class=\"tdValue\">R$ ". number_format($sale["quantity"] * $sale["price"], 2, ',', '.')  ."</td>");
+            $valorTotal += $sale["quantity"] * $sale["price"];
 
-          echo("</tr>");
+            echo("</tr>");
         }
+
+        echo("<tr>");
+            echo("<td class=\"tdQuantity\"></td>");
+            echo("<td class=\"tdQuantity\">Valor Total</td>");
+            echo("<td class=\"tdValue\">R$ ". number_format($valorTotal, 2, ',', '.')  ."</td>");
+        echo("</tr>");
 
         echo("</table>");
         echo("</div");
