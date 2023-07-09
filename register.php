@@ -11,33 +11,47 @@
 
     if(!empty($_POST['email']) && !empty($_POST['password'])) {
         $email = $_POST['email'];
-        $password = $_POST['password'];
-        $endereco = $_POST['endereco'];
-        $nome = $_POST['nome'];
-        $cep = $_POST['cep'];
-        $cidade_estado = $_POST['cidadeEstado'];
-        $salt = md5(uniqid(rand(), true));
 
-        $passwordHash = password_hash($password.$salt, PASSWORD_BCRYPT);
+        if(email_already_registred($email, $pdo)){
+            $message = "O email informado já está registrado!";
+        } else {
+            $password = $_POST['password'];
+            $endereco = $_POST['endereco'];
+            $nome = $_POST['nome'];
+            $cep = $_POST['cep'];
+            $cidade_estado = $_POST['cidadeEstado'];
+            $salt = md5(uniqid(rand(), true));
 
-        $query = "INSERT INTO users (email, password, salt, role, nome, endereco, cep, cidade_estado) VALUES (:email, :password, :salt, :role, :nome, :endereco, :cep, :cidade_estado)";
-        $stmt = $pdo->prepare($query);
-        $role = 'U';
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $passwordHash);
-        $stmt->bindParam(':salt', $salt);
-        $stmt->bindParam(':role', $role);
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':endereco', $endereco);
-        $stmt->bindParam(':cep', $cep);
-        $stmt->bindParam(':cidade_estado', $cidade_estado);
+            $passwordHash = password_hash($password.$salt, PASSWORD_BCRYPT);
 
-        try {
-            $stmt->execute();
-            $message = "Usuário criado com sucesso!";
-        } catch(PDOException $e) {
-            $message = "Houve um problema ao criar o usuário: ". $e->getMessage();
+            $query = "INSERT INTO users (email, password, salt, role, nome, endereco, cep, cidade_estado) VALUES (:email, :password, :salt, :role, :nome, :endereco, :cep, :cidade_estado)";
+            $stmt = $pdo->prepare($query);
+            $role = 'U';
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $passwordHash);
+            $stmt->bindParam(':salt', $salt);
+            $stmt->bindParam(':role', $role);
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':endereco', $endereco);
+            $stmt->bindParam(':cep', $cep);
+            $stmt->bindParam(':cidade_estado', $cidade_estado);
+
+            try {
+                $stmt->execute();
+                $message = "Usuário criado com sucesso!";
+            } catch(PDOException $e) {
+                $message = "Houve um problema ao criar o usuário: ". $e->getMessage();
+            }
         }
+    }
+
+    function email_already_registred($email, $pdo) {
+        $query = "SELECT email FROM users WHERE email = :email";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        
+        return $stmt->rowCount() > 0;
     }
 ?>
 

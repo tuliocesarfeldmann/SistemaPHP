@@ -148,13 +148,13 @@
                     <span>R$ <?= $cartItemTotalPrice ?></span> 
                 </div>
             <?php endforeach; ?>
-            <div>
+            <div class="total-price">
                 TOTAL: R$ <?= formatPrice(getTotalPrice($cartItems)); ?>
             </div>
         <?php endif; ?>
 
         <form method="POST">
-            <button type="submit" name="confirm_purchase">Confirmar Compra</button>
+            <button type="submit" class="buy-button" name="confirm_purchase">Confirmar Compra</button>
         </form>
     </div>
 
