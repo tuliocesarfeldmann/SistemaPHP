@@ -47,7 +47,8 @@
 
         $queryProducts = "SELECT p.*, i.image FROM products p 
             INNER JOIN images i on i.id = p.image_id 
-            WHERE UPPER(p.name) like UPPER(:nameFilter)";
+            WHERE UPPER(p.name) like UPPER(:nameFilter)
+            AND p.deleted = 0";
 
         $stmtProducts = $pdo->prepare($queryProducts);
         $stmtProducts->bindParam("nameFilter", $nameFilter);

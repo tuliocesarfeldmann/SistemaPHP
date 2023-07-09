@@ -141,7 +141,7 @@
                         <form method="POST">
                             <input type="hidden" name="cart_id" value="<?= $cartItemId ?>">
                             <button type="submit" name="update_quantity" value="-">-</button>
-                            <input type="number" name="quantity" value="<?= $cartItemQuantity ?>" min="1" max="10">
+                            <input type="number" name="quantity" value="<?= $cartItemQuantity ?>" min="1" max="100">
                             <button type="submit" name="update_quantity" value="+">+</button>
                         </form>
                     </span>

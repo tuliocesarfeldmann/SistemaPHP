@@ -27,6 +27,7 @@ create table products (
     price decimal(20, 4) not null,
     seller_id integer not null,
     image_id integer not null,
+    deleted TINYINT not null default 0,
     foreign key (seller_id) references users(id),
     foreign key (image_id) references images(id)
 );
