@@ -23,6 +23,17 @@ function showPopup() {
     global $shouldShowPopup, $popupMessage, $popupType;
 
     if($shouldShowPopup){
+        echo("<script>
+            toastr.options = {
+                \"debug\": false,
+                \"positionClass\": \"toast-bottom-right\",
+                \"fadeIn\": 300,
+                \"fadeOut\": 1000,
+                \"timeOut\": 5000,
+                \"extendedTimeOut\": 1000
+            }
+            </script>"
+        );
         switch($popupType) {
             case PopupTypes::SUCCESS:
                 echo("<script>toastr.success(\"$popupMessage\")</script>");

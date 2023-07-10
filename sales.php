@@ -10,6 +10,15 @@
         header("Location: login.php");
         exit;
     }
+
+    if(isset($_POST["deleteItem"])){
+        $queryProduct = "UPDATE products SET deleted = 1 WHERE id = :product_id;";
+        $stmtProduct = $pdo->prepare($queryProduct);
+        $stmtProduct->bindParam("product_id", $_POST["product_id"]);
+        $stmtProduct->execute();
+  
+        setPopup(PopupTypes::SUCCESS, "Produto excluído com sucesso!");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -19,9 +28,14 @@
     <link rel="stylesheet" type="text/css" href="styles/index_style.css">
     <link rel="stylesheet" type="text/css" href="styles/menu_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"></link>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </head>
 <body>
     <?php include 'menu.php'; ?>
+
+    <?php showPopup(); ?>
 
     <div class="optionsList">
       <button class="buyButton">
@@ -51,7 +65,7 @@
 
         echo("<div class=\"productListing\">");
         foreach($products as $product) {
-            createProductCard($product["id"], $product["name"], $product["price"], $product["image"], true);
+            createProductCardAdmin($product["id"], $product["name"], $product["price"], $product["image"], true);
         }
         echo("</div>");
     ?>
