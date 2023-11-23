@@ -47,14 +47,14 @@
 
             $userId = $pdo->lastInsertId();
 
-            $queryCPF = "INSERT INTO user_cnpj (company_name, cnpj, fantasy_name, users_id) VALUES (:company_name, :cnpj, :fantasy_name, :users_id)";
-            $stmtCPF = $pdo->prepare($queryCPF);
-            $stmtCPF->bindParam(':company_name', $companyName);
-            $stmtCPF->bindParam(':cnpj', $cnpj);
-            $stmtCPF->bindParam(':fantasy_name', $fantasyName);
-            $stmtCPF->bindParam(':users_id', $userId);
+            $queryCNPJ = "INSERT INTO user_cnpj (company_name, cnpj, fantasy_name, users_id) VALUES (:company_name, :cnpj, :fantasy_name, :users_id)";
+            $stmtCNPJ = $pdo->prepare($queryCNPJ);
+            $stmtCNPJ->bindParam(':company_name', $companyName);
+            $stmtCNPJ->bindParam(':cnpj', $cnpj);
+            $stmtCNPJ->bindParam(':fantasy_name', $fantasyName);
+            $stmtCNPJ->bindParam(':users_id', $userId);
 
-            $stmtCPF->execute();
+            $stmtCNPJ->execute();
 
             $pdo->commit();
 

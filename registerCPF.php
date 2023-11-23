@@ -53,7 +53,7 @@
             $stmtCPF->bindParam(':name', $name);
             $stmtCPF->bindParam(':cpf', $cpf);
             $stmtCPF->bindParam(':birthdate', $birthdate);
-            $stmtCPF->bindParam(':rg', $username);
+            $stmtCPF->bindParam(':rg', $rg);
             $stmtCPF->bindParam(':users_id', $userId);
 
             $stmtCPF->execute();

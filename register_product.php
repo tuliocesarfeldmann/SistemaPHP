@@ -23,6 +23,7 @@
             $imageType = $image["type"];
             $imageName = $image["name"];
             $imageBlob = file_get_contents($image["tmp_name"]);
+            $categoryId = $_POST["categoryId"];
 
             $queryImage = "INSERT INTO images (image, name, type) VALUES (:image, :name, :type);";
             $stmtImage = $pdo->prepare($queryImage);
@@ -32,12 +33,13 @@
             $stmtImage->execute();
             $imageId = $pdo->lastInsertId();
 
-            $queryProduct = "INSERT INTO products (name, price, seller_id, image_id) VALUES (:name, :price, :seller_id, :image_id);";
+            $queryProduct = "INSERT INTO products (name, price, seller_id, image_id, categoria_id) VALUES (:name, :price, :seller_id, :image_id, :category_id);";
             $stmtProduct = $pdo->prepare($queryProduct);
             $stmtProduct->bindParam("name", $productName);
             $stmtProduct->bindParam("price", $price);
             $stmtProduct->bindParam("seller_id", $_SESSION["user_id"]);
             $stmtProduct->bindParam("image_id", $imageId);
+            $stmtProduct->bindParam("category_id", $categoryId);
             $stmtProduct->execute();
 
             setPopup(PopupTypes::SUCCESS, "Produto salvo com sucesso");
@@ -68,6 +70,7 @@
           <input type="text" name="productName" placeholder="Digite o nome do produto" required>
           <input type="number" name="price" step="0.01" placeholder="Digite o preço do produto" required>
           <input type="file" name="image" accept="image/*" required>
+          <input type="number" step="1" name="categoryId" placeholder="Digite o ID da categoria" required>
           <br><br>
           <input type="submit" name="registerProduct">
       </form>

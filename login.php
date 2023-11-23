@@ -14,7 +14,7 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $query = "SELECT id, email, password, salt, role, nome FROM users WHERE email = :email";
+        $query = "SELECT id, email, password, salt, role, username FROM users WHERE email = :email";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -28,7 +28,7 @@
 
             if($validPassword) {
                 $_SESSION['user_id'] = $user['id'];
-                $_SESSION['nome'] = $user['nome'];
+                $_SESSION['nome'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
                 header("Location: index.php");
             } else {
